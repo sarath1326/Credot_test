@@ -3,6 +3,7 @@
 import React from 'react'
 import Navbar from '../navbar/Navbar'
 import Addimage from '../addimage/Addimage'
+import Content from '../content/Content'
 
 function Home() {
   return (
@@ -10,6 +11,7 @@ function Home() {
 
         <Navbar />
         <Addimage />
+        <Content />
         
       
     </div>
