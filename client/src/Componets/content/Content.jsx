@@ -3,6 +3,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { CiCirclePlus } from "react-icons/ci";
+import {Slide} from "react-slideshow-image"
 
 
 function Content() {
@@ -10,6 +11,10 @@ function Content() {
     const [num, setnum] = useState([
         1, 2, 3, 4, 5, 6
     ])
+
+    
+
+
     return (
         <div>
 
@@ -45,7 +50,7 @@ function Content() {
 
                     {/* exlusive products view div */}
 
-                    <div className='w-[350px] h-[420px] border-2 border-gray-600 '>
+                    <div className='w-[350px] h-[450px] border-2 border-gray-600 '>
 
                         <div className='w-full h-[250px] bg-white flex justify-center items-center  ' >
 
@@ -69,7 +74,7 @@ function Content() {
 
                     </div>
 
-                    <div className='w-[700px] h-[420px]  flex flex-wrap gap-3 justify-center ' >
+                    <div className='w-[700px] h-[420px]   flex flex-wrap gap-3 justify-center ' >
 
                         {
                             num.map((obj) => (
@@ -113,6 +118,12 @@ function Content() {
                 </div>
 
 
+
+
+            
+
+
+                
 
 
 
