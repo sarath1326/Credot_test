@@ -7,6 +7,7 @@ import Footer from '../../footer/Footer'
 import { validationSchema } from "./loginvalid"
 import { useFormik } from 'formik'
 import axios from "../../../Axios/constant"
+import {message} from "antd"
 
 
 function Login() {
@@ -23,6 +24,30 @@ function Login() {
 
         initialValues: value,
         validationSchema: validationSchema,
+        
+               onSubmit:(value)=>{
+
+                console.log(value)
+
+                axios.post("/auth/login",value).then((respo)=>{
+
+                       if(respo.data.emailerr){
+
+                             message.error("this email is invalid")
+                       
+                            }else if(respo.data.flag){
+
+                                  message.success("login ok")
+                            }else{
+
+                                  message.error("password and email not match")
+                            }
+                }).catch(err=>{
+
+                        message.error("somthing worng")
+                })
+
+               }
 
     })
 
@@ -83,7 +108,7 @@ function Login() {
                         }
 
 
-                        <button className='w-[150px] h-[40px] bg-blue-500 text-white mt-10 ml-16' > Submit  </button>
+                        <button type='submit' className='w-[150px] h-[40px] bg-blue-500 text-white mt-10 ml-16' > Submit  </button>
 
 
                     </form>

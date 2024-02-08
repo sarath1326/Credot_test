@@ -46,7 +46,7 @@ function Tobbrand() {
                {
                    brand.map((obj)=>(
 
-                        <div className={` w-[100px] h-[100px] rounded-full flex justify-center items-center `}  >
+                        <div className={` w-[100px] h-[100px] rounded-full flex justify-center items-center `} >
                             <img src={obj.image} alt="" className='w-[100%] h-[100%] rounded-full' />
 
                         </div>

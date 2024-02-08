@@ -5,9 +5,14 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FaCartShopping } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
 
 
 function Navbar() {
+
+    const navigate=useNavigate();
+    
+    
     return (
         <div>
 
@@ -28,8 +33,8 @@ function Navbar() {
 
                             <input type="text" placeholder='What are you looking for?  ' className='w-[300px] h-10 border-2 border-indigo-200  ' />
                             <button className='w-20 h-10 bg-black flex justify-center items-center'  > <CiSearch className='text-white w-5 h-5 ' /> </button>
-
-                            <div className='w-10 h-10 rounded-3xl bg-slate-400 ml-5 flex justify-center items-center ' >
+ 
+                            <div className='w-10 h-10 rounded-3xl bg-slate-400 ml-5 flex justify-center items-center ' onClick={()=>{navigate("/signup")}} >
 
                                 <BsFillPersonFill />
 

@@ -6,9 +6,10 @@ import Footer from '../../footer/Footer'
 import { useFormik } from "formik"
 import { useState } from 'react'
 import { validationSchema } from "./signupValid"
-// import axios from "../../../Axios/constant"
+import axios from "../../../Axios/constant"
 import {message} from "antd"
-import axios from 'axios'
+import {useNavigate} from "react-router-dom"
+
 
 
 
@@ -16,6 +17,8 @@ import axios from 'axios'
 function Signup() {
 
     axios.defaults.withCredentials = true;
+
+    const navigate=useNavigate();
 
 
 
@@ -36,7 +39,7 @@ function Signup() {
    
              
              
-            axios.post("http://localhost:3001/auth/signup",value).then((respo)=>{
+            axios.post("/auth/signup",value).then((respo)=>{
 
                 if(respo.data.exist){
 
@@ -65,25 +68,7 @@ function Signup() {
     })
 
 
-    const submit=()=>{
-
-         const obj={
-            name:"sarath",
-            age:22
-         }
-
-         console.log("btn funn ")
    
-axios.post("http://localhost:3001/auth/signup",obj).then((respo)=>{
-
-              console.log(respo.data.msg)
-}).catch(err=>{
-
-       console.log(err)
-})
-
-
-    }
 
 
     return (
@@ -158,7 +143,8 @@ axios.post("http://localhost:3001/auth/signup",obj).then((respo)=>{
                         }
 
 
-                        {/* <button type='submit' className='w-[150px] h-[40px] bg-blue-500 text-white mt-10 ml-16' > Submit  </button> */}
+                        <button type='submit' className='w-[150px] h-[40px] bg-blue-500 text-white mt-10 ml-16' > Submit  </button>
+                        <p className='text-blue-900 text-center cursor-pointer' onClick={()=>{navigate("/login")}} > Login   </p>
 
 
                     </form>
@@ -167,7 +153,7 @@ axios.post("http://localhost:3001/auth/signup",obj).then((respo)=>{
 
                 </div>
 
-                <button onClick={submit}  className='w-[150px] h-[40px] bg-blue-500 text-white mt-10 ml-16' > Submit  </button>
+                {/* <button onClick={submit}  className='w-[150px] h-[40px] bg-blue-500 text-white mt-10 ml-16' > Submit  </button> */}
 
 
 
