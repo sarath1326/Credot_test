@@ -8,25 +8,30 @@ module.exports = {
 
 
 
-    signup_post_data: (req, res) => {  // signup post req contro fun 
+    signup_post_data: (req, res) => { 
 
-        authservice.user_signup(req.body).then((respo) => {
+        console.log(req.body)
+        
+        
+        // signup post req contro fun 
 
-            if (respo.exist) {
+        // authservice.user_signup(req.body).then((respo) => {
 
-                res.json({ exist: true })
-                return
+        //     if (respo.exist) {
 
-            } else if (respo.flag) {
+        //         res.json({ exist: true })
+        //         return
 
-                res.json({ flag: true })
-                return
-            }
-        }).catch(err => {
+        //     } else if (respo.flag) {
 
-            res.status(500).json({ flag: false })
-            return
-        })
+        //         res.json({ flag: true })
+        //         return
+        //     }
+        // }).catch(err => {
+
+        //     res.status(500).json({ flag: false })
+        //     return
+        // })
 
 
     },
@@ -38,12 +43,12 @@ module.exports = {
 
             if (respo.emailerr) {
 
-                res.json({ mag: "email err" })
+                res.json({ emailerr:true })
                 return
 
             } else if (respo.flag) {
 
-                res.json({ msg: "user login" })
+                res.json({ flag:true })
                 return
             } else {
 
