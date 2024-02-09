@@ -8,9 +8,12 @@ import { validationSchema } from "./loginvalid"
 import { useFormik } from 'formik'
 import axios from "../../../Axios/constant"
 import {message} from "antd"
+import { useNavigate } from 'react-router-dom'
 
 
 function Login() {
+
+    const navigate=useNavigate()
 
     const value = {
 
@@ -37,7 +40,7 @@ function Login() {
                        
                             }else if(respo.data.flag){
 
-                                  message.success("login ok")
+                                  navigate("/")
                             }else{
 
                                   message.error("password and email not match")

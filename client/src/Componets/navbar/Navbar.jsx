@@ -22,7 +22,7 @@ function Navbar() {
 
                     <div className=' w-full  sm:w-[50%] h-full flex items-center pl-[100px] ' >
 
-                        <img src="./image 1.png" alt="" className='w-20 h-14 ' />
+                        <img src="/image 1.png" alt="" className='w-20 h-14 ' />
 
 
                     </div>
@@ -41,13 +41,13 @@ function Navbar() {
 
                             </div>
 
-                            <div className='w-10 h-10 rounded-3xl bg-slate-400 ml-5 flex justify-center items-center ' >
+                            <div className='w-10 h-10 rounded-3xl bg-slate-400 ml-5 flex justify-center items-center ' onClick={()=>{navigate("/whitelist")}}   >
 
-                                <BsFillSuitHeartFill />
+                                <BsFillSuitHeartFill   />
 
                             </div>
 
-                            <div className='w-10 h-10 rounded-3xl bg-slate-400 ml-5 flex justify-center items-center ' >
+                            <div className='w-10 h-10 rounded-3xl bg-slate-400 ml-5 flex justify-center items-center ' onClick={()=>{navigate("/cart")}}  >
 
                                 <FaCartShopping />
 

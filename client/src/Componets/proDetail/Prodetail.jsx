@@ -3,12 +3,46 @@
 
 import React from 'react'
 import Navbar from '../navbar/Navbar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaStar } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
 import Footer from '../footer/Footer';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from "../../Axios/constant"
+import { message } from 'antd';
+
 
 function Prodetail() {
+
+    const { id } = useParams()
+    const [pro, setpro] = useState()
+
+    const navigate=useNavigate()
+
+    useEffect(() => {
+
+        axios(`/products/all/${id}`).then((respo) => {
+
+            if (respo.data.flag) {
+
+                const result = respo.data.data
+                setpro(result)
+                console.log(respo.data)
+            } else {
+
+                message.error("server error")
+            }
+
+        }).catch(err => {
+
+            message.error("somthing is worn")
+
+        })
+
+
+    }, [])
+
+
 
     const [box, setbox] = useState([
         1, 2, 3
@@ -44,6 +78,56 @@ function Prodetail() {
 
     ]
 
+
+    const add_cart=(proid)=>{    // pro add cart func
+
+           const obj={
+
+               proid:proid,
+               quantity:1
+           }
+       
+            axios.post("/cart/addcart",obj).then((respo)=>{
+
+                const result=respo.data
+
+                if(result.err){
+
+                      message.error("server error")
+                      return
+                
+                    }else if(result.authfaild){
+
+                         navigate("/login")
+
+                    }else if(result.new){
+
+                          message.success("Add to Cart")
+                          return
+                    
+                        }else if(result.exist){
+
+                             message.success("this product has already in the cart ")
+                             return
+                        }else{
+
+                             message.success("Add to cart")
+                        }
+
+                  
+            }).catch(err=>{
+
+                   message.error("somthing is worng")
+            })
+    }
+
+
+
+
+
+
+
+
     return (
         <div>
 
@@ -54,7 +138,7 @@ function Prodetail() {
                 <div className='w-[300px] h-[400px] ' >
 
                     <div className='flex justify-center items-center mt-10' >
-                        <img src="./mobile.png" alt="" className='w-[150px] h-[150px]' />
+                        <img src={pro?.image} alt="" className='w-[150px] h-[150px]' />
                     </div>
 
                     <div className='w-full h-[100px]  mt-20 flex gap-10' >
@@ -63,7 +147,7 @@ function Prodetail() {
                             box.map((obj) => (
 
                                 <div className='w-[70px] h-[70px] bg-blue-500' >
-                                    <img src="./mobile.png" alt="" className='w-[100%] h-[100%]' />
+                                    <img src={pro?.image} alt="" className='w-[100%] h-[100%]' />
 
                                 </div>
                             ))
@@ -77,9 +161,10 @@ function Prodetail() {
 
                 <div className='w-[400px] h-[400px] pl-8 ' >
 
-                    <p className='font-bold text-[20px]  ' > AirPods Max  </p>
+                    <p className='font-bold text-[20px]  ' >  {pro?.name} </p>
 
                     <div className='flex gap-1 mt-3 ' >
+                        
 
                         {
                             star.map((obj) => (
@@ -92,7 +177,7 @@ function Prodetail() {
 
                     </div>
 
-                    <p className='mt-5' > <span className='text-sm text-gray-600' > OMR </span> <span className='font-bold' >  4,699.00  </span> <s> 4,699.00  </s>   </p>
+                    <p className='mt-5' > <span className='text-sm text-gray-600' > OMR </span> <span className='font-bold' >  {pro?.price} </span> <s> {pro?.price} </s>   </p>
 
                     <p className='text-[13px] mt-3' > Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
                         and scrambled </p>
@@ -140,7 +225,7 @@ function Prodetail() {
                         <button className='w-[30px] h-[25px]  border-2 border-gray-600 mt-5 '> -  </button>
 
 
-                        <div className='w-[100px] h-[40px] bg-black mt-5 text-white flex justify-center items-center  ' > Add To cart     </div>
+                        <div className='w-[100px] h-[40px] bg-black mt-5 text-white flex justify-center items-center  ' onClick={()=>{add_cart(pro._id)}}   > Add To cart     </div>
 
 
 

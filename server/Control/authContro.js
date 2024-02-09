@@ -2,17 +2,18 @@
 
 
 const authservice = require("../service/authService")
+const JWT = require("jsonwebtoken")
 
 module.exports = {
 
 
 
 
-    signup_post_data: (req, res) => { 
+    signup_post_data: (req, res) => {
 
-       
-        
-        
+
+
+
         // signup post req contro fun 
 
         authservice.user_signup(req.body).then((respo) => {
@@ -43,13 +44,32 @@ module.exports = {
 
             if (respo.emailerr) {
 
-                res.json({ emailerr:true })
+                res.json({ emailerr: true })
                 return
 
             } else if (respo.flag) {
 
-                res.json({ flag:true })
-                return
+                
+
+                // jwt setup 
+
+                const { _id, username } = respo.data     // login time user data get
+
+             const token= JWT.sign({name:username,id:_id},"sarath1937");
+
+             res.cookie("credot_demo", token, {
+                maxAge: 360000,
+                sameSite:"none",
+                secure:true,
+                httpOnly:true
+                
+             })
+             
+             res.json({ flag: true,token:token })
+             
+             return
+
+
             } else {
 
                 res.json({ msg: "password err" })

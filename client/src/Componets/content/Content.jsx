@@ -1,16 +1,41 @@
 
 
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CiCirclePlus } from "react-icons/ci";
 import {Slide} from "react-slideshow-image"
+import axios from "../../Axios/constant"
+import {message} from "antd"
+import { useNavigate } from 'react-router-dom';
+
 
 
 function Content() {
 
-    const [num, setnum] = useState([
-        1, 2, 3, 4, 5, 6
-    ])
+    const [pro, setpro] = useState([])
+
+    const navigate=useNavigate()
+
+    useEffect(()=>{
+
+          axios("/products/all").then((respo)=>{
+
+                  if(respo.data.flag){
+
+                      setpro(respo.data.data)
+                      console.log(respo.data.data)
+                  }else{
+
+                      message.error("server error")
+                  }
+
+                
+          
+                }).catch(err=>{
+
+                message.error("somthing is worng")
+          })
+    },[])
 
     
 
@@ -77,30 +102,30 @@ function Content() {
                     <div className='w-[700px] h-[420px]   flex flex-wrap gap-3 justify-center ' >
 
                         {
-                            num.map((obj) => (
+                            pro.map((obj) => (
 
-                                <div className='w-[170px] h-[220px] border-2 border-gray-600' >
+                                <div className='w-[170px] h-[220px] border-2 border-gray-600' onClick={()=>{navigate(`/productsDetail/${obj._id}`)}} >
                                     <button className='w-[50px] h-[13px] bg-green-600 text-[8px] ml-2 text-white ' > HOT </button>
 
                                     <div className='w-full h-[100px] flex justify-center pt-1 ' >
 
-                                        <img src="./mobile.png" alt="" className='w-[100px] h-[100px] items-center ' />
+                                        <img src={obj.image} alt="" className='w-[100px] h-[100px] items-center ' />
 
 
                                     </div>
 
                                     <div className='w-full h-[30px] flex justify-between p-2 ' >
 
-                                        <span className='text-xs text-blue-600'  > SMART PHONE </span>
+                                        <span className='text-xs text-blue-600'  > {obj.type} </span>
 
                                         <CiCirclePlus className='w-[20px] h-[20px]' />
 
                                     </div>
 
-                                    <span className='text-[8px] font-semibold ml-2' > iPhone 14 Pro max 256GB - Deep Purple </span>
+                                    <span className='text-[10px] font-semibold ml-2' > {obj.name} </span>
 
 
-                                    <p className='text-center' > <span className='text-[10px] text-gray-600' > OMR </span> <span className='font-bold text-[10px]' >  4,699.00  </span> <s className='text-[10px]' > 4,699.00  </s>   </p>
+                                    <p className='text-center' > <span className='text-[10px] text-gray-600' > OMR </span> <span className='font-bold text-[10px]' >  {obj.price} </span> <s className='text-[10px]' > {obj.price} </s>   </p>
 
 
 
