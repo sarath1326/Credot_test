@@ -3,6 +3,7 @@
 
 const authservice = require("../service/authService")
 const JWT = require("jsonwebtoken")
+require("dotenv").config()
 
 module.exports = {
 
@@ -55,7 +56,7 @@ module.exports = {
 
                 const { _id, username } = respo.data     // login time user data get
 
-             const token= JWT.sign({name:username,id:_id},"sarath1937");
+             const token= JWT.sign({name:username,id:_id},process.env.JWT_PASS);
 
              console.log(token)
 

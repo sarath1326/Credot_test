@@ -2,6 +2,7 @@
 
 const cartService = require("../service/cartService")
 const JWT = require("jsonwebtoken")
+require("dotenv").config()
 
 module.exports = {
 
@@ -57,7 +58,7 @@ module.exports = {
 
             const token = req.cookies.credot_demo
 
-            JWT.verify(token, "sarath1937", (err, result) => {
+            JWT.verify(token, process.env.JWT_PASS, (err, result) => {
 
                   const userid = result.id
 
