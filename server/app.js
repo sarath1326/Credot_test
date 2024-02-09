@@ -24,7 +24,7 @@ DB.DB_Connect()  // DataBase Connecting func
 
 app.use(cors({
 
-    origin: ["http://localhost:3000"],
+    origin: ["https://credot-test.onrender.com"],
     methods: ["GET", "POST", "DELETE"],
     credentials: true
 }))
