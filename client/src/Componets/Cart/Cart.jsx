@@ -3,8 +3,72 @@
 import React from 'react'
 import Navbar from '../navbar/Navbar'
 import Footer from '../footer/Footer'
+import { useEffect ,useState} from 'react'
+import axios from "../../Axios/constant"
+import { Navigate, useNavigate } from 'react-router-dom'
+import {message} from "antd"
 
 function Cart() {
+
+
+    const navigate=useNavigate()
+    const [data,setdata]=useState([])
+
+    useEffect(()=>{
+
+       axios("/cart/viewcart").then((respo)=>{
+
+            const result=respo.data
+
+             if(result.authfaild){
+
+                   navigate("/login")
+             }else if(result.flag){
+      
+                 setdata(result.data)
+  
+             }else{
+
+                 message.error("server error")
+                 
+             }
+       }).catch(err=>{
+
+          message.error("somthing worng")
+       
+        })
+
+
+
+    },[])
+
+
+    const cartqunt_incriment=(index,proid)=>{  // cart products  quantity increment func
+
+        const product=data.find((obj)=>obj.item===proid)
+
+         product.quantity+=1
+
+         setdata([...data])
+
+
+    }
+
+    const cartqunt_decrement=(index,proid)=>{  //// cart products  quantity decrement func
+
+        const product=data.find((obj)=>obj.item===proid)
+
+         product.quantity-=1
+
+         setdata([...data])
+
+
+    }
+
+
+
+
+
     return (
         <div>
 
@@ -36,26 +100,32 @@ function Cart() {
                                 </tr>
                             </thead>
 
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                           {
+                             data?.map((obj,index)=>(
+
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex gap-4">
-                                    <img src="./mobile.png" alt="" className='w-[30px] h-[30px]' />   Apple MacBook Pro 17
+                                    <img src={obj.cartitems.image} alt="" className='w-[30px] h-[30px]' />   {obj.cartitems.name}
                                 </td>
                                 <td className="px-6 py-4">
-                                    Silver
+                                   {obj.cartitems.price}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <button className='w-[30px] h-[25px]  border-2 border-gray-600 mt-5 '> +  </button>
+                                    <button className='w-[30px] h-[25px]  border-2 border-gray-600 mt-5 ' onClick={()=>{cartqunt_incriment(index,obj.item)}} > +  </button>
 
-                                    <button className='w-[30px] h-[25px]   mt-5 '> 1  </button>
+                                    <button className='w-[30px] h-[25px]   mt-5 '> {obj.quantity}  </button>
 
-                                    <button className='w-[30px] h-[25px]  border-2 border-gray-600 mt-5 '> -  </button>
+                                    <button className='w-[30px] h-[25px]  border-2 border-gray-600 mt-5 ' onClick={()=>{cartqunt_decrement(index,obj.item)}} > -  </button>
 
                                 </td>
                                 <td className="px-6 py-4">
 
-
+                                       {obj.cartitems.price}
                                 </td>
                             </tr>
+                             ))
+
+                           }
 
 
 

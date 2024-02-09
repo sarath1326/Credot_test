@@ -57,6 +57,8 @@ module.exports = {
 
              const token= JWT.sign({name:username,id:_id},"sarath1937");
 
+             console.log(token)
+
              res.cookie("credot_demo", token, {
                 maxAge: 360000,
                 sameSite:"none",

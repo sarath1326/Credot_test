@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
+    axios.defaults.withCredentials = true;
+
     const navigate=useNavigate()
 
     const value = {
@@ -21,6 +23,8 @@ function Login() {
         password:""
     }
 
+
+   
 
 
     const { errors, values, handleBlur, handleChange, handleSubmit, touched } = useFormik({

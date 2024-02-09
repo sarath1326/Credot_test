@@ -1,6 +1,6 @@
 
 
-const control = require("../service/cartService")
+const cartService = require("../service/cartService")
 const JWT = require("jsonwebtoken")
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
 
                   }
 
-                  control.add_new_cart(data).then((respo) => {
+                  cartService.add_new_cart(data).then((respo) => {
 
                         if (respo.new) {
 
@@ -42,9 +42,9 @@ module.exports = {
 
 
                   }).catch(err => {
- 
-                           res.json({err:true})
-                           return
+
+                        res.json({ err: true })
+                        return
 
                   })
 
@@ -53,8 +53,27 @@ module.exports = {
 
       },
 
-      view_cart:(req,res)=>{
+      view_cart: (req, res) => {
 
-              
+            const token = req.cookies.credot_demo
+
+            JWT.verify(token, "sarath1937", (err, result) => {
+
+                  const userid = result.id
+
+                  cartService.view_cart(userid).then((respo) => {
+
+                        res.json({flag:true,data:respo.data})
+
+                  }).catch(err => {
+
+                      res.json({flag:false})
+
+                  })
+
+            })
+
+
+
       }
 }
