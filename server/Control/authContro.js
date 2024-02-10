@@ -56,7 +56,7 @@ module.exports = {
 
                 const { _id, username } = respo.data     // login time user data get
 
-             const token= JWT.sign({name:username,id:_id},process.env.JWT_PASS);
+             const token= JWT.sign({name:username,id:_id},"sarath1937");
 
              console.log(token)
 
@@ -92,7 +92,7 @@ module.exports = {
 
         const token = req.cookies.credot_demo
 
-        JWT.verify(token,process.env.JWT_PASS,(err,result)=>{
+        JWT.verify(token,"sarath1937",(err,result)=>{
 
                 const {id,name}=result
 

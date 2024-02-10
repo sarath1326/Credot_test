@@ -58,7 +58,7 @@ module.exports = {
 
             const token = req.cookies.credot_demo
 
-            JWT.verify(token, process.env.JWT_PASS, (err, result) => {
+            JWT.verify(token, "sarath1937", (err, result) => {
 
                   const userid = result.id
 
