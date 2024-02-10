@@ -66,6 +66,11 @@ module.exports = {
 
                         res.json({flag:true,data:respo.data})
 
+                        // cartService.cart_total_price(userid).then((retun)=>{   // user cart total price get
+
+                              
+                        // })
+
                   }).catch(err => {
 
                       res.json({flag:false})

@@ -43,6 +43,8 @@ module.exports = {
             final.save().then(()=>{
                  
                 resolve({new:true})
+
+                console.log("exist")
            
                 }).catch(err=>{
 
@@ -53,11 +55,14 @@ module.exports = {
 
            } else{    // if user has in the cart then check  do have products already in the cart
 
-             const products_exist=userdata.products.findIndex((obj)=>obj.proid===objproid)
+             const products_exist=userdata.products.findIndex((obj)=>obj.proid==prodata.proid)
+
+             console.log("index",products_exist)
 
              if(products_exist!=-1){  // if products has in the cart sent msg
 
                    resolve({exist:true})
+                   console.log("exist")
              
                 }else{  // if the  products don't has in the user cart then update user cart arrya
 
@@ -71,6 +76,8 @@ module.exports = {
                     }).then(()=>{
 
                         resolve({update:true})
+
+                        console.log("update")
                     
                     }).catch(err=>{
 
@@ -157,5 +164,66 @@ module.exports = {
 
               
           })
+    },
+
+    cart_total_price:(userid)=>{
+
+             return new Promise( async(resolve,reject)=>{
+
+                let total_price=await cartmodel.aggregate([
+
+                    {
+                       $match:{user:userid}                         
+                   },{
+
+                       $unwind:"$products"
+                   },
+                   {
+
+                       $project:{
+
+                           item:"$products.proid",
+                           quantity:"$products.quantity"
+
+                       }
+                       
+
+                   },
+                   {
+                       
+                    $lookup:{
+
+                        from:"products",
+                        localField:"item",
+                        foreignField:"_id",
+                        as:"cartitems"
+                               
+                           }
+                   
+                   },
+                   {
+
+                       $project:{
+
+                           item:1,quantity:1,cartitems:{$arrayElemAt:["$cartitems",0]}
+
+                       }
+                   },
+                   {
+
+                    $group:{
+                        _id:null,
+                        total:{$sum:{$multiply:["$quantity","$cartitems.price"]}}
+                     }
+
+                     
+                   }
+
+               ])
+
+                resolve({total:total_price})
+                 
+                     
+             })
     }
 }

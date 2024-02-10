@@ -9,7 +9,7 @@ const mongoose=require("mongoose");
 
   module.exports.DB_Connect=()=>{
 
-        mongoose.connect('mongodb+srv://sarathsarath93366:sarath1937@cluster0.1b7z9mn.mongodb.net/?retryWrites=true&w=majority').then(()=>{
+        mongoose.connect(process.env.DB_URL).then(()=>{
 
                console.log("DB connected")
         }).catch(err=>{

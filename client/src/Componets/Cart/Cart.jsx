@@ -8,11 +8,13 @@ import axios from "../../Axios/constant"
 import { Navigate, useNavigate } from 'react-router-dom'
 import {message} from "antd"
 
+
 function Cart() {
 
 
     const navigate=useNavigate()
     const [data,setdata]=useState([])
+    const [price,setprice]=useState()
 
     useEffect(()=>{
 
@@ -26,6 +28,7 @@ function Cart() {
              }else if(result.flag){
       
                  setdata(result.data)
+                 
   
              }else{
 
@@ -160,18 +163,18 @@ function Cart() {
                             <div className='w-full h-[30px] flex justify-around mt-14'>
 
                                 <p className='text-[15px] font-bold'> Subtotal </p>
-                                <p className='text-[13px] ' > OMR  107.00 </p>
+                                <p className='text-[13px] ' > OMR  1077 </p>
 
                             </div>
 
                             <div className='w-full h-[30px] flex justify-around mt-14 '>
 
                                 <p className='text-[15px] font-bold'> Total </p>
-                                <p className='text-[20px] font-semibold ' > OMR  107.00 </p>
+                                <p className='text-[20px] font-semibold ' > OMR  1077</p>
 
                             </div>
 
-                            <button className='w-[250px] h-[30px] ml-16 mt-10 bg-blue-700 text-white' > PROCEED TO CHECKOUT </button>
+                            <button className='w-[250px] h-[30px] ml-16 mt-10 bg-blue-700 text-white' onClick={()=>{navigate("/success")}} > PROCEED TO CHECKOUT </button>
 
 
                         </div>

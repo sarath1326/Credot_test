@@ -86,6 +86,44 @@ module.exports = {
 
 
 
+    },
+
+    find_userdata:(req,res)=>{
+
+        const token = req.cookies.credot_demo
+
+        JWT.verify(token,process.env.JWT_PASS,(err,result)=>{
+
+                const {id,name}=result
+
+                authservice.get_userdata(id).then((respo)=>{
+
+                      if(respo.empty){
+
+                            res.json({empty:true,name:name})
+                            return
+                      
+                        }else if(respo.flag){
+
+                             res.json({flag:true,name:name,num:respo.data})
+                             return
+                        
+                            }else{
+
+                                   res.json({flag:false,name:name})
+                                   return
+                            }
+
+                }).catch(err=>{
+
+                     res.json({err:true,name:name})
+                     return
+                })
+      
+      
+            })
+
+         
     }
 
 }

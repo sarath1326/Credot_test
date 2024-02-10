@@ -13,7 +13,7 @@ const control=require("../Control/cartContro")
 
 router.post("/addcart",middilwaer.auth_verify,control.add_cart)  // add cart post request
 
-router.get("/viewcart",middilwaer.auth_verify,control.view_cart)
+router.get("/viewcart",middilwaer.auth_verify,control.view_cart) // view cart get reques
 
 
 

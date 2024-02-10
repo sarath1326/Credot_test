@@ -23,7 +23,7 @@ require("dotenv").config()
                 
                   }else{
 
-                        JWT.verify(token,process.env.JWT_PASS,(err,result)=>{   // token verify
+                        JWT.verify(token,"sarath1937",(err,result)=>{   // token verify
                                  
                               if(result){
 

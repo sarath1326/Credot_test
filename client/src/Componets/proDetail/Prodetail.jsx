@@ -10,12 +10,15 @@ import Footer from '../footer/Footer';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "../../Axios/constant"
 import { message } from 'antd';
+import { useContext } from 'react';
+import {CartContext} from "../../contextApi/Cartcount"
 
 
 function Prodetail() {
 
     const { id } = useParams()
     const [pro, setpro] = useState()
+    const {count,setcount}=useContext(CartContext)
 
     const navigate=useNavigate()
 
@@ -102,7 +105,9 @@ function Prodetail() {
 
                     }else if(result.new){
 
-                          message.success("Add to Cart")
+                          message.success(count)
+                          setcount(count+1)
+                          console.log("cart add new")
                           return
                     
                         }else if(result.exist){
@@ -112,6 +117,7 @@ function Prodetail() {
                         }else{
 
                              message.success("Add to cart")
+                             setcount(count+1)
                         }
 
                   

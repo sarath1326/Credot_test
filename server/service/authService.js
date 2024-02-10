@@ -1,6 +1,7 @@
 
 
 const usermodel=require("../Database/Model/userModel");
+const cartmodel=require("../Database/Model/cart")
 const bcrypt=require("bcrypt")
 
 
@@ -71,7 +72,40 @@ module.exports={
          
             })
       
+        },
+
+
+
+        get_userdata:(userid)=>{
+
+             return new Promise( async(resolve,reject)=>{
+
+              try {
+
+                const result=await cartmodel.findOne({user:userid})
+
+                if(!result){
+
+                       resolve({empty:true})
+                }else{
+
+                     const num=result.products.length
+
+                     resolve({flag:true,data:num})
+                }
+                
+              } catch (error) {
+
+                reject()
+                
+              }
+
+                   
+             })
         }
+
+
+
 
 
 

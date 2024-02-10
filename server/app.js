@@ -27,10 +27,12 @@ app.use(cors({
     origin: ["https://credot-test.onrender.com"],
     methods: ["GET", "POST", "DELETE"],
     credentials: true
+
 }))
 
+// "https://credot-test.onrender.com"
 
-
+// "http://localhost:3000"
 
 
 app.use("/auth", authRout) // auth router 
