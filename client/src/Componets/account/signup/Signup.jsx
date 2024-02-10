@@ -47,7 +47,7 @@ function Signup() {
                
                     }else if(respo.data.flag){
 
-                        message.success("Register ok")
+                       navigate("/login")
 
                 }else{
 

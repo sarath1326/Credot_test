@@ -105,7 +105,7 @@ function Prodetail() {
 
                     }else if(result.new){
 
-                          message.success(count)
+                          message.success("Add to Cart")
                           setcount(count+1)
                           console.log("cart add new")
                           return
